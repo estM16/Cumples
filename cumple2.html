@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños!</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #baebf8;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            position: relative;
+        }
+
+        h1 {
+            color: #7775f4;
+            font-size: 8vw;
+            margin-top: 5vh;
+        }
+
+        img {
+            margin-top: 2vh;
+            max-width: 80vw;
+            height: auto;
+        }
+
+        .globo {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.9;
+            animation-name: subir;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 1;
+        }
+
+        /* Colita del globo */
+        .globo::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            /* Grosor de la colita */
+            height: 50px;
+            /* Largo de la colita */
+            background-color: inherit;
+            /* Mismo color que el globo */
+            bottom: -20px;
+            /* Debajo del globo */
+            left: 50%;
+            transform: translateX(-50%) rotate(10deg);
+            /* Ligeramente inclinada */
+            border-radius: 2px;
+        }
+
+        @keyframes subir {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-120vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>¡Feliz Cumpleaños!</h1>
+    
+    <img src="https://media.tenor.com/-Uz6xHwMa4gAAAAi/snorlax-snorlax-pokemon.gif" alt="Gif">
+
+    <script>
+        function crearGlobos(cantidad) {
+            const colores = ['red', 'blue', 'green', 'yellow', 'pink', 'purple', 'orange'];
+
+            for (let i = 0; i < cantidad; i++) {
+                let globo = document.createElement('div');
+                globo.classList.add('globo');
+
+                // Color aleatorio
+                globo.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+
+                // Tamaño relativo a la pantalla
+                const size = 4 + Math.random() * 6; // 4vw a 10vw
+                globo.style.width = size + 'vw';
+                globo.style.height = (size * 1.5) + 'vw';
+
+                // Posición horizontal aleatoria
+                globo.style.left = Math.random() * window.innerWidth + 'px';
+
+                // Posición vertical inicial fuera de la pantalla
+                globo.style.top = '100vh';
+
+                // Duración aleatoria para efecto natural
+                globo.style.animationDuration = (3 + Math.random() * 3) + 's'; // 3s a 6s
+                globo.style.animationDelay = (Math.random() * 2) + 's';
+
+                document.body.appendChild(globo);
+
+                // Eliminar globo después de animación
+                setTimeout(() => globo.remove(), 7000);
+            }
+        }
+
+        window.onload = () => {
+            crearGlobos(20); // Globos iniciales
+            let interval = setInterval(() => crearGlobos(5), 1000); // Más globos cada segundo
+            setTimeout(() => clearInterval(interval), 5000); // Solo durante 5 segundos
+        }
+    </script>
+</body>
+
+</html>
